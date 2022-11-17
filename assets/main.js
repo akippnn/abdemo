@@ -2225,11 +2225,11 @@
 		onvisible.add('hr.style1', { style: 'blur-in', speed: 500, intensity: 5, delay: 500, staggerOrder: '', replay: false });
 		onvisible.add('h1.style2, h2.style2, h3.style2, p.style2', { style: 'blur-in', speed: 500, intensity: 5, delay: 625, staggerOrder: '', replay: false });
 		onvisible.add('.buttons.style1', { style: 'blur-in', speed: 625, intensity: 2, delay: 750, replay: false });
-		onvisible.add('#descjp', { style: 'blur-in', speed: 875, intensity: 0, delay: 125, staggerOrder: '', replay: false });
-		onvisible.add('#subtextjp', { style: 'blur-in', speed: 500, intensity: 5, delay: 625, staggerOrder: '', replay: false });
+		onvisible.add('#ensubtext', { style: 'blur-in', speed: 875, intensity: 0, delay: 125, staggerOrder: '', replay: false });
+		onvisible.add('#jpsubtext', { style: 'blur-in', speed: 500, intensity: 5, delay: 625, staggerOrder: '', replay: false });
 		onvisible.add('#buttons09', { style: 'blur-in', speed: 625, intensity: 2, delay: 750, replay: false });
 		onvisible.add('h1.style5, h2.style5, h3.style5, p.style5', { style: 'blur-in', speed: 875, intensity: 5, delay: 125, staggerOrder: '', replay: false });
 		onvisible.add('.icons.style1', { style: 'blur-in', speed: 625, intensity: 5, delay: 375, replay: false });
-		onvisible.add('#subtext2en', { style: 'blur-in', speed: 500, intensity: 5, delay: 625, staggerOrder: '', replay: false });
+		onvisible.add('#ensubtext2', { style: 'blur-in', speed: 500, intensity: 5, delay: 625, staggerOrder: '', replay: false });
 
 })();
