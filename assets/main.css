@@ -487,6 +487,67 @@ body.is-instant:after {
 	background-color: rgba(0,0,0,0.188) !important;
 }
 
+.buttons.style3 {
+	gap: 0.25rem;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.buttons.style3:not(:first-child) {
+	margin-top: 1rem !important;
+}
+
+.buttons.style3:not(:last-child) {
+	margin-bottom: 1rem !important;
+}
+
+.buttons.style3 li a {
+	display: inline-flex;
+	width: auto;
+	height: 3rem;
+	line-height: 3rem;
+	padding: 0 1.5rem;
+	vertical-align: middle;
+	font-family: 'Noto Sans', sans-serif;
+	font-size: 0.75em;
+	font-weight: 700;
+	border-radius: 2.5rem;
+	transition: color 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.buttons.style3 li a svg {
+	display: block;
+	fill: #000000;
+	flex-grow: 0;
+	flex-shrink: 0;
+	height: 100%;
+	min-width: 16px;
+	width: 1em;
+	margin-left: -0.125em;
+	margin-right: calc(0.5em + 0rem);
+	transition: fill 0.25s ease;
+}
+
+.buttons.style3 li a .label {
+	direction: var(--site-language-direction);
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.buttons.style3 .button {
+	color: #000000;
+	border: solid 1px #000000;
+}
+
+.buttons.style3 .button:hover {
+	border-color: rgba(0,0,0,0.502) !important;
+	color: rgba(0,0,0,0.502) !important;
+}
+
+.buttons.style3 .button:hover svg {
+	fill: rgba(0,0,0,0.502) !important;
+}
+
 .buttons.style4 {
 	gap: 0.125rem;
 	flex-direction: column;
@@ -2727,8 +2788,209 @@ hr.style1:before {
 		min-height: 100% !important;
 		width: 100% !important;
 	}
+
+	#main > .inner {
+		--padding-horizontal: 0rem;
+		--padding-vertical: 1.5rem;
+		--spacing: 0rem;
+	}
 	
-	#container05 > .wrapper > .inner {
+	#main > .inner > * > .full {
+		margin-left: calc(0rem);
+		max-width: calc(100% + 0rem + 0.4725px);
+		width: calc(100% + 0rem + 0.4725px);
+	}
+	
+	#main > .inner > * > .full.screen {
+		margin-left: -50vw;
+	}
+	
+	#main > .inner > footer > .full:last-child {
+		margin-bottom: -1.5rem !important;
+	}
+	
+	#main > .inner > .active > .full:first-child {
+		margin-top: -1.5rem !important;
+	}
+	
+	.image.style1:not(:first-child) {
+		margin-top: 0.375rem !important;
+	}
+	
+	.image.style1:not(:last-child) {
+		margin-bottom: 0.375rem !important;
+	}
+	
+	.image.style1 .frame {
+		width: 15rem;
+	}
+	
+	.buttons.style2 {
+		gap: 0.25rem;
+	}
+	
+	.buttons.style2:not(:first-child) {
+		margin-top: 0rem !important;
+	}
+	
+	.buttons.style2:not(:last-child) {
+		margin-bottom: 0rem !important;
+	}
+	
+	.buttons.style2 li a {
+		letter-spacing: 0rem;
+		font-size: 0.625em;
+	}
+	
+	.buttons.style2 li a svg {
+		width: 1.75em;
+	}
+	
+	.buttons.style3 {
+		gap: 0.25rem;
+	}
+	
+	.buttons.style3:not(:first-child) {
+		margin-top: 0.75rem !important;
+	}
+	
+	.buttons.style3:not(:last-child) {
+		margin-bottom: 0.75rem !important;
+	}
+	
+	.buttons.style3 li a {
+		letter-spacing: 0rem;
+		font-size: 0.75em;
+	}
+	
+	.buttons.style3 li a svg {
+		width: 1em;
+	}
+	
+	.buttons.style4 {
+		gap: 0.125rem;
+	}
+	
+	.buttons.style4:not(:first-child) {
+		margin-top: 0.75rem !important;
+	}
+	
+	.buttons.style4:not(:last-child) {
+		margin-bottom: 0.75rem !important;
+	}
+	
+	.buttons.style4 li a {
+		letter-spacing: 0rem;
+		font-size: 1em;
+	}
+	
+	.buttons.style4 li a svg {
+		width: 1em;
+	}
+	
+	.buttons.style7 {
+		gap: 0.125rem;
+	}
+	
+	.buttons.style7 li a {
+		letter-spacing: 0rem;
+		font-size: 0.75em;
+	}
+	
+	.buttons.style7 li a svg {
+		width: 1em;
+	}
+	
+	#jplinks2 {
+		gap: 0.125rem;
+	}
+	
+	#jplinks2 li a {
+		letter-spacing: 0rem;
+		font-size: 0.75em;
+	}
+	
+	.buttons.style1 {
+		gap: 0.125rem;
+	}
+	
+	.buttons.style1 li a {
+		letter-spacing: 0rem;
+		font-size: 0.75em;
+	}
+	
+	.buttons.style1 li a svg {
+		width: 1.5em;
+	}
+	
+	.buttons.style6 {
+		gap: 0rem;
+	}
+	
+	.buttons.style6 li a {
+		letter-spacing: 0rem;
+		font-size: 0.75em;
+	}
+	
+	.buttons.style6 li a svg {
+		width: 1.75em;
+	}
+	
+	h1.style1:not(:first-child), h2.style1:not(:first-child), h3.style1:not(:first-child), p.style1:not(:first-child) {
+		margin-top: 0rem !important;
+	}
+	
+	h1.style1:not(:last-child), h2.style1:not(:last-child), h3.style1:not(:last-child), p.style1:not(:last-child) {
+		margin-bottom: 0rem !important;
+	}
+	
+	h1.style1, h2.style1, h3.style1, p.style1 {
+		letter-spacing: 0rem;
+		width: 100%;
+		font-size: 1em;
+		line-height: 1.5;
+	}
+	
+	h1.style2, h2.style2, h3.style2, p.style2 {
+		padding-left: calc(3rem * var(--indent-left));
+		padding-right: calc(3rem * var(--indent-right));
+		letter-spacing: 0rem;
+		width: 100%;
+		font-size: 0.75em;
+		line-height: 1.5;
+	}
+	
+	#text2 {
+		letter-spacing: 0rem;
+		width: 100%;
+		font-size: 1em;
+		line-height: 1.5;
+	}
+	
+	h1.style5, h2.style5, h3.style5, p.style5 {
+		letter-spacing: 0rem;
+		width: 100%;
+		font-size: 1em;
+		line-height: 1.5;
+	}
+	
+	hr.style1:not(:first-child) {
+		margin-top: 0.625rem !important;
+	}
+	
+	hr.style1:not(:last-child) {
+		margin-bottom: 0.625rem !important;
+	}
+	
+	hr.style1:before {
+		width: 12rem;
+	}
+	
+	#footer {
+		margin-top: 0rem !important;
+	}
+	
+	.container.style1 > .wrapper > .inner {
 		--gutters: calc(var(--padding-vertical) * 2);
 		--padding-horizontal: 2rem;
 		--padding-vertical: 2.5rem;
@@ -2816,9 +3078,13 @@ hr.style1:before {
 	
 	#main > .inner > .active > .full:first-child {
 		margin-top: -0rem !important;
+  }
+
+	.buttons.style2 {
+		gap: 0.1875rem;
 	}
 	
-	.buttons.style2 {
+	.buttons.style3 {
 		gap: 0.1875rem;
 	}
 	
