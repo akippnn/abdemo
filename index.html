@@ -11,29 +11,23 @@
 		<meta property="og:description" content="test" />
 		<link href="https://fonts.googleapis.com/css?display=swap&family=Noto+Sans:700,700italic" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" href="assets/main.css" />
+		<noscript><link rel="stylesheet" href="assets/noscript.css" /></noscript>
 	</head>
-	<body>
+	<body class="is-loading">
 		<div id="wrapper">
 			<div id="main">
 				<div class="inner">
 					<section id="en-section">
-						<div id="whitespace2" class="style1 container columns full">
+						<div id="containeren" class="style1 container columns full">
 							<div class="wrapper">
-								<div class="inner">
+								<div class="inner" data-onvisible-trigger="1" data-reorder="1,0" data-reorder-breakpoint="medium">
 									<div class="full">
-										<div id="image" class="image full" data-position="left">
+										<div id="image" class="image full" data-position="right">
 											<span class="frame deferred"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCAxNzgyIDI1NjAiIHdpZHRoPSIxNzgyIiBoZWlnaHQ9IjI1NjAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxyZWN0IGZpbGw9IiM3YjcxOTgiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiLz48L3N2Zz4%3D" data-src="assets/images/image.jpg" alt="" /></span>
 										</div>
 									</div>
 									<div>
-										<ul id="mobilecontrolsen" class="style3 buttons" data-visibility="mobile">
-											<li>
-												<a href="#jp" class="button n01"><svg><use xlink:href="assets/icons.svg#globe"></use></svg><span class="label">日本語</span></a>
-											</li><li>
-												<a href="#down" class="button n02"><svg><use xlink:href="assets/icons.svg#arrow-down-alt"></use></svg><span class="label">Scroll Down</span></a>
-											</li>
-										</ul>
-										<ul id="jplang" class="style2 buttons" data-visibility="desktop">
+										<ul id="jplang" class="style2 buttons">
 											<li>
 												<a href="#jp" class="button n01"><svg><use xlink:href="assets/icons.svg#globe"></use></svg><span class="label">日本語</span></a>
 											</li>
@@ -41,12 +35,7 @@
 										<div id="title" class="style1 image">
 											<span class="frame"><img src="assets/images/title.png" alt="" /></span>
 										</div>
-										<h2 id="descen" class="style5"><span class="p">Angel Beats! is a 13-episode + 2 special episode Japanese anime television original series produced by Key/VisualArts, P.A.Works, and Aniplex.<br /><sub><sup>Created &amp; written by Jun Maeda. Directed by Seiji Kishi.</sup></sub></span></h2>
-										<ul id="enlinks1" class="style7 buttons">
-											<li>
-												<a href="https://www.animenewsnetwork.com/encyclopedia/anime.php?id=10885" class="button n01"><svg><use xlink:href="assets/icons.svg#link"></use></svg><span class="label">more info on AnimeNewsNetwork</span></a>
-											</li>
-										</ul>
+										<p id="descen" class="style5"><span class="p">Angel Beats! is a 13-episode + 2 special episode Japanese anime television original series produced by Key/VisualArts, P.A.Works, and Aniplex.<br /><sub><sup>Created &amp; written by Jun Maeda. Directed by Seiji Kishi.</sup></sub></span></p>
 										<ul id="angelbeatsjp" class="style4 buttons">
 											<li>
 												<a href="https://www.angelbeats.jp/" class="button n01"><svg><use xlink:href="assets/icons.svg#link"></use></svg><span class="label">angelbeats.jp</span></a>
@@ -68,23 +57,29 @@
 													<svg><use xlink:href="assets/icons.svg#wikipedia"></use></svg>
 													<span class="label">Wikipedia</span>
 												</a>
+											</li><li>
+												<a class="n04" href="https://www.animenewsnetwork.com/encyclopedia/anime.php?id=10885">
+													<svg><use xlink:href="assets/icons.svg#apparel"></use></svg>
+													<span class="label">Apparel</span>
+												</a>
 											</li>
 										</ul>
 										<hr id="divider01" class="style1">
-										<p id="subtexten" class="style2"><span class="p">Available on the following platforms<br /><sub><sup>Restrictions may apply</sup></sub></span></p>
-										<ul id="platforms1" class="style1 buttons">
+										<p id="subtext1en" class="style2">Available on the following platforms</p>
+										<p id="subtext2en"><span class="p">Only available to certain regions,<br />may require a paid subscription.</span></p>
+										<ul id="buttons01" class="style1 buttons">
 											<li>
-												<a href="https://music.apple.com/us/album/tv%E3%82%A2%E3%83%8B%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3-angel-beats-original-soundtrack/842476044" class="button n01"><svg><use xlink:href="assets/icons.svg#apple-music"></use></svg><span class="label">Apple Music</span></a>
+												<a href="https://domain.ext/path" class="button n01"><svg><use xlink:href="assets/icons.svg#crunchyroll"></use></svg><span class="label">Crunchyroll</span></a>
 											</li><li>
 												<a href="https://www.bilibili.tv/en/media/36812" class="button n02"><svg><use xlink:href="assets/icons.svg#bilibili"></use></svg><span class="label">Bilibili</span></a>
 											</li><li>
-												<a href="https://domain.ext/path" class="button n03"><svg><use xlink:href="assets/icons.svg#crunchyroll"></use></svg><span class="label">Crunchyroll</span></a>
+												<a href="https://www.funimation.com/shows/angel-beats" class="button n03"><svg><use xlink:href="assets/icons.svg#apparel"></use></svg><span class="label">Funimation</span></a>
 											</li><li>
-												<a href="https://domain.ext/path" class="button n04"><svg><use xlink:href="assets/icons.svg#niftygateway"></use></svg><span class="label">Netflix</span></a>
+												<a href="https://domain.ext/path" class="button n04"><svg><use xlink:href="assets/icons.svg#apparel"></use></svg><span class="label">Netflix</span></a>
 											</li><li>
-												<a href="https://www.funimation.com/shows/angel-beats" class="button n05"><svg><use xlink:href="assets/icons.svg#link"></use></svg><span class="label">Funimation</span></a>
+												<a href="https://music.apple.com/us/album/tv%E3%82%A2%E3%83%8B%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3-angel-beats-original-soundtrack/842476044" class="button n05"><svg><use xlink:href="assets/icons.svg#apple-music"></use></svg><span class="label">Apple Music</span></a>
 											</li><li>
-												<a href="#jp" class="button n06"><svg><use xlink:href="assets/icons.svg#globe"></use></svg><span class="label">JP</span></a>
+												<a href="#list" class="button n06"><svg><use xlink:href="assets/icons.svg#menu"></use></svg><span class="label">List all...</span></a>
 											</li>
 										</ul>
 									</div>
@@ -95,29 +90,22 @@
 					<section id="jp-section">
 						<div id="container02" class="style1 container columns full">
 							<div class="wrapper">
-								<div class="inner">
+								<div class="inner" data-onvisible-trigger="1" data-reorder="1,0" data-reorder-breakpoint="medium">
 									<div class="full">
-										<div id="image" class="image full" data-position="left">
+										<div id="image" class="image full" data-position="right">
 											<span class="frame deferred"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCAxNzgyIDI1NjAiIHdpZHRoPSIxNzgyIiBoZWlnaHQ9IjI1NjAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxyZWN0IGZpbGw9IiM3YjcxOTgiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiLz48L3N2Zz4%3D" data-src="assets/images/image.jpg" alt="" /></span>
 										</div>
 									</div>
 									<div>
-										<ul id="mobilecontrolsjp" class="style3 buttons" data-visibility="mobile">
+										<ul id="buttons08" class="style2 buttons">
 											<li>
 												<a href="#en" class="button n01"><svg><use xlink:href="assets/icons.svg#globe"></use></svg><span class="label">ENG</span></a>
-											</li><li>
-												<a href="#down" class="button n02"><svg><use xlink:href="assets/icons.svg#arrow-down-alt"></use></svg><span class="label">下る</span></a>
-											</li>
-										</ul>
-										<ul id="buttons08" class="style2 buttons" data-visibility="desktop">
-											<li>
-												<a href="#en" class="button n01"><svg><use xlink:href="assets/icons.svg#globe"></use></svg><span class="label">English</span></a>
 											</li>
 										</ul>
 										<div id="title" class="style1 image">
 											<span class="frame deferred"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCAxNDQwIDMzOCIgd2lkdGg9IjE0NDAiIGhlaWdodD0iMzM4IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48cmVjdCBmaWxsPSJ0cmFuc3BhcmVudCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg%3D%3D" data-src="assets/images/title.png" alt="" /></span>
 										</div>
-										<h1 id="descjp" class="style1"><span class="p">「――神への復讐。その最前線」</span><span class="p">『Angel Beats!』（エンジェル ビーツ）は、アニプレックス、VISUAL ARTS/Key、P.A.WORKS制作による日本のオリジナルテレビアニメ作品。全13話+特別編2話。</span></h1>
+										<p id="text06" class="style1"><span class="p">「――神への復讐。その最前線」</span><span class="p">『Angel Beats!』（エンジェル ビーツ）は、アニプレックス、VISUAL ARTS/Key、P.A.WORKS制作による日本のオリジナルテレビアニメ作品。全13話+特別編2話。</span></p>
 										<ul id="angelbeatsjp" class="style4 buttons">
 											<li>
 												<a href="https://www.angelbeats.jp/" class="button n01"><svg><use xlink:href="assets/icons.svg#link"></use></svg><span class="label">angelbeats.jp</span></a>
@@ -128,27 +116,67 @@
 												<a href="http://key.visualarts.gr.jp/angelbeats/blog/index.html" class="button n01"><svg><use xlink:href="assets/icons.svg#link"></use></svg><span class="label">公式ブログ</span></a>
 											</li><li>
 												<a href="https://ja.wikipedia.org/wiki/Angel_Beats!" class="button n02"><svg><use xlink:href="assets/icons.svg#wikipedia"></use></svg><span class="label">ウィキペディア</span></a>
-											</li>
-										</ul>
-										<ul id="jplinks2" class="buttons">
-											<li>
-												<a href="https://w.atwiki.jp/angelbeats/" class="button n01">@⠀まとめwiki</a>
 											</li><li>
-												<a href="https://w.atwiki.jp/aniwotawiki/pages/5740.html" class="button n02">@⠀アニヲタwiki</a>
+												<a href="https://w.atwiki.jp/angelbeats/" class="button n03"><svg><use xlink:href="assets/icons.svg#apparel"></use></svg><span class="label">まとめwiki</span></a>
+											</li><li>
+												<a href="https://w.atwiki.jp/aniwotawiki/pages/5740.html" class="button n04"><svg><use xlink:href="assets/icons.svg#apparel"></use></svg><span class="label">アニヲタwiki</span></a>
 											</li>
 										</ul>
 										<hr id="divider1" class="style1">
-										<p id="subtextjp" class="style2">以下のウェブサイトで利用いただけます</p>
-										<ul id="platforms2" class="style1 buttons">
+										<p id="text05" class="style2">以下のウェブサイトで利用いただけます</p>
+										<ul id="buttons07" class="style1 buttons">
 											<li>
-												<a href="https://music.apple.com/jp/album/tv%E3%82%A2%E3%83%8B%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3-angel-beats-original-soundtrack/842476044" class="button n01"><svg><use xlink:href="assets/icons.svg#apple-music"></use></svg><span class="label">Apple Music</span></a>
+												<a href="https://ch.nicovideo.jp/angelbeats/" class="button n01"><svg><use xlink:href="assets/icons.svg#niconico"></use></svg><span class="label">ニコニコ</span></a>
 											</li><li>
-												<a href="https://ch.nicovideo.jp/angelbeats/" class="button n02"><svg><use xlink:href="assets/icons.svg#niconico"></use></svg><span class="label">ニコニコチャンネル</span></a>
+												<a href="https://music.apple.com/jp/album/tv%E3%82%A2%E3%83%8B%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3-angel-beats-original-soundtrack/842476044" class="button n02"><svg><use xlink:href="assets/icons.svg#apple-music"></use></svg><span class="label">Apple Music</span></a>
 											</li><li>
-												<a href="https://video.unext.jp/title/SID0002167" class="button n03"><svg><use xlink:href="assets/icons.svg#link"></use></svg><span class="label">ユーネクスト</span></a>
+												<a href="https://video.unext.jp/title/SID0002167" class="button n03"><svg><use xlink:href="assets/icons.svg#apparel"></use></svg><span class="label">U-NEXT</span></a>
+											</li><li>
+												<a href="https://comic-walker.com/contents/search/?q=%E3%82%A8%E3%83%B3%E3%82%B8%E3%82%A7%E3%83%AB%E3%83%93%E3%83%BC%E3%83%84" class="button n04"><svg><use xlink:href="assets/icons.svg#apparel"></use></svg><span class="label">Comicwalker</span></a>
+											</li><li>
+												<a href="#list" class="button n05"><svg><use xlink:href="assets/icons.svg#menu"></use></svg><span class="label">挙げ尽くして</span></a>
 											</li>
 										</ul>
 									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section id="list-section">
+						<div id="container03" class="container default full screen">
+							<div class="wrapper">
+								<div class="inner" data-onvisible-trigger="1">
+									<p id="descjp">Available on the following platforms</p>
+									<ul id="platforms1" class="style1 buttons">
+										<li>
+											<a href="https://music.apple.com/us/album/tv%E3%82%A2%E3%83%8B%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3-angel-beats-original-soundtrack/842476044" class="button n01"><svg><use xlink:href="assets/icons.svg#apple-music"></use></svg><span class="label">Apple Music</span></a>
+										</li><li>
+											<a href="https://www.bilibili.tv/en/media/36812" class="button n02"><svg><use xlink:href="assets/icons.svg#bilibili"></use></svg><span class="label">Bilibili</span></a>
+										</li><li>
+											<a href="https://domain.ext/path" class="button n03"><svg><use xlink:href="assets/icons.svg#crunchyroll"></use></svg><span class="label">Crunchyroll</span></a>
+										</li><li>
+											<a href="https://www.funimation.com/shows/angel-beats" class="button n04"><svg><use xlink:href="assets/icons.svg#apparel"></use></svg><span class="label">Funimation</span></a>
+										</li><li>
+											<a href="https://domain.ext/path" class="button n05"><svg><use xlink:href="assets/icons.svg#apparel"></use></svg><span class="label">Netflix</span></a>
+										</li>
+									</ul>
+									<p id="subtextjp">以下のウェブサイトで利用いただけます</p>
+									<ul id="platforms2" class="style1 buttons">
+										<li>
+											<a href="https://ch.nicovideo.jp/angelbeats/" class="button n01"><svg><use xlink:href="assets/icons.svg#niconico"></use></svg><span class="label">ニコニコ</span></a>
+										</li><li>
+											<a href="https://music.apple.com/jp/album/tv%E3%82%A2%E3%83%8B%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3-angel-beats-original-soundtrack/842476044" class="button n02"><svg><use xlink:href="assets/icons.svg#apple-music"></use></svg><span class="label">Apple Music JP</span></a>
+										</li><li>
+											<a href="https://comic-walker.com/contents/search/?q=%E3%82%A8%E3%83%B3%E3%82%B8%E3%82%A7%E3%83%AB%E3%83%93%E3%83%BC%E3%83%84" class="button n03"><svg><use xlink:href="assets/icons.svg#apparel"></use></svg><span class="label">Comicwalker</span></a>
+										</li><li>
+											<a href="https://video.unext.jp/title/SID0002167" class="button n04"><svg><use xlink:href="assets/icons.svg#apparel"></use></svg><span class="label">U-NEXT</span></a>
+										</li>
+									</ul>
+									<ul id="buttons09" class="buttons">
+										<li>
+											<a href="javascript:history.back();" class="button n01"><svg><use xlink:href="assets/icons.svg#arrow-left"></use></svg><span class="label">Back</span></a>
+										</li>
+									</ul>
 								</div>
 							</div>
 						</div>
@@ -189,6 +217,12 @@
 											</li>
 										</ul>
 									</div>
+								</div>
+							</div>
+						</div>
+						<div id="container05" class="container default full">
+							<div class="wrapper">
+								<div class="inner" data-onvisible-trigger="1">
 								</div>
 							</div>
 						</div>

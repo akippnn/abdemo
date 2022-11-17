@@ -428,6 +428,17 @@
 		// Expose scrollToElement.
 			window._scrollToTop = scrollToTop;
 	
+	// "On Load" animation.
+		on('load', function() {
+			setTimeout(function() {
+				$body.className = $body.className.replace(/\bis-loading\b/, 'is-playing');
+	
+				setTimeout(function() {
+					$body.className = $body.className.replace(/\bis-playing\b/, 'is-ready');
+				}, 1000);
+			}, 100);
+		});
+	
 	// Sections.
 		(function() {
 	
@@ -660,7 +671,12 @@
 					location.href = '#' + section.id.replace(/-section$/, '');
 	
 				},
-				sections = {};
+				sections = {
+					'list': {
+						hideFooter: true,
+						disableAutoScroll: true,
+					},
+				};
 	
 	
 			// Expose doNextScrollPoint, doPreviousScrollPoint, doFirstScrollPoint, doLastScrollPoint.
@@ -896,82 +912,160 @@
 								if (location.hash == '#en')
 									history.replaceState(null, null, '#');
 	
-							// Get options.
-								name = (section ? section.id.replace(/-section$/, '') : null);
-								hideHeader = name ? ((name in sections) && ('hideHeader' in sections[name]) && sections[name].hideHeader) : false;
-								hideFooter = name ? ((name in sections) && ('hideFooter' in sections[name]) && sections[name].hideFooter) : false;
-								disableAutoScroll = name ? ((name in sections) && ('disableAutoScroll' in sections[name]) && sections[name].disableAutoScroll) : false;
+						// Get options.
+							name = (section ? section.id.replace(/-section$/, '') : null);
+							hideHeader = name ? ((name in sections) && ('hideHeader' in sections[name]) && sections[name].hideHeader) : false;
+							hideFooter = name ? ((name in sections) && ('hideFooter' in sections[name]) && sections[name].hideFooter) : false;
+							disableAutoScroll = name ? ((name in sections) && ('disableAutoScroll' in sections[name]) && sections[name].disableAutoScroll) : false;
 	
-							// Deactivate current section.
+						// Deactivate current section.
 	
-								// Hide header and/or footer (if necessary).
+							// Hide header and/or footer (if necessary).
 	
-									// Header.
-										if (header && hideHeader) {
+								// Header.
+									if (header && hideHeader) {
 	
-											header.classList.add('hidden');
+										header.classList.add('hidden');
+	
+										setTimeout(function() {
 											header.style.display = 'none';
+										}, 250);
 	
-										}
+									}
 	
-									// Footer.
-										if (footer && hideFooter) {
+								// Footer.
+									if (footer && hideFooter) {
 	
-											footer.classList.add('hidden');
+										footer.classList.add('hidden');
+	
+										setTimeout(function() {
 											footer.style.display = 'none';
+										}, 250);
 	
-										}
+									}
 	
-								// Deactivate.
-									currentSection = $('#main > .inner > section:not(.inactive)');
-									currentSection.classList.add('inactive');
-									currentSection.classList.remove('active');
-									currentSection.style.display = 'none';
+							// Deactivate.
+								currentSection = $('#main > .inner > section:not(.inactive)');
 	
-								// Unload elements.
-									unloadElements(currentSection);
+								if (currentSection) {
+	
+									// Get current height.
+										currentSectionHeight = currentSection.offsetHeight;
+	
+									// Deactivate.
+										currentSection.classList.add('inactive');
+	
+									// Unload elements.
+										unloadElements(currentSection);
+	
+										// Hide.
+											setTimeout(function() {
+												currentSection.style.display = 'none';
+												currentSection.classList.remove('active');
+											}, 250);
+	
+									}
 	
 							// Activate target section.
+								setTimeout(function() {
 	
-								// Show header and/or footer (if necessary).
+									// Show header and/or footer (if necessary).
 	
-									// Header.
-										if (header && !hideHeader) {
+										// Header.
+											if (header && !hideHeader) {
 	
-											header.style.display = '';
-											header.classList.remove('hidden');
+												header.style.display = '';
 	
-										}
+												setTimeout(function() {
+													header.classList.remove('hidden');
+												}, 0);
 	
-									// Footer.
-										if (footer && !hideFooter) {
+											}
 	
-											footer.style.display = '';
-											footer.classList.remove('hidden');
+										// Footer.
+											if (footer && !hideFooter) {
 	
-										}
+												footer.style.display = '';
 	
-								// Activate.
-									section.classList.remove('inactive');
-									section.classList.add('active');
-									section.style.display = '';
+												setTimeout(function() {
+													footer.classList.remove('hidden');
+												}, 0);
 	
-							// Trigger 'resize' event.
-								trigger('resize');
+											}
 	
-							// Load elements.
-								loadElements(section);
+									// Activate.
 	
-							// Scroll to scroll point (if applicable).
-								if (scrollPoint)
-									scrollToElement(scrollPoint, 'instant');
+										// Show.
+											section.style.display = '';
 	
-							// Otherwise, just scroll to top (if not disabled for this section).
-								else if (!disableAutoScroll)
-									scrollToElement(null, 'instant');
+										// Trigger 'resize' event.
+											trigger('resize');
 	
-							// Unlock.
-								locked = false;
+										// Scroll to top (if not disabled for this section).
+											if (!disableAutoScroll)
+												scrollToElement(null, 'instant');
+	
+										// Get target height.
+											sectionHeight = section.offsetHeight;
+	
+										// Set target heights.
+											if (sectionHeight > currentSectionHeight) {
+	
+												section.style.maxHeight = currentSectionHeight + 'px';
+												section.style.minHeight = '0';
+	
+											}
+											else {
+	
+												section.style.maxHeight = '';
+												section.style.minHeight = currentSectionHeight + 'px';
+	
+											}
+	
+										// Delay.
+											setTimeout(function() {
+	
+												// Activate.
+													section.classList.remove('inactive');
+													section.classList.add('active');
+	
+												// Temporarily restore target heights.
+													section.style.minHeight = sectionHeight + 'px';
+													section.style.maxHeight = sectionHeight + 'px';
+	
+												// Delay.
+													setTimeout(function() {
+	
+														// Turn off transitions.
+															section.style.transition = 'none';
+	
+														// Clear target heights.
+															section.style.minHeight = '';
+															section.style.maxHeight = '';
+	
+														// Load elements.
+															loadElements(section);
+	
+													 	// Scroll to scroll point (if applicable).
+													 		if (scrollPoint)
+																scrollToElement(scrollPoint, 'instant');
+	
+														// Delay.
+															setTimeout(function() {
+	
+																// Turn on transitions.
+																	section.style.transition = '';
+	
+																// Unlock.
+																	locked = false;
+	
+															}, 75);
+	
+													}, 500 + 250);
+	
+											}, 75);
+	
+								}, 250);
 	
 						}
 	
@@ -1179,50 +1273,58 @@
 	
 			}
 	
-	// Visibility.
+	// Reorder.
 		(function() {
 	
-			var	elements = $$('[data-visibility]');
+			var	breakpoints = {
+					small: '(max-width: 736px)',
+					medium: '(max-width: 980px)',
+				},
+				elements = $$('[data-reorder]');
 	
 			// Initialize elements.
 				elements.forEach(function(e) {
 	
-					var	p = e.parentElement,
+					var	desktop = [],
+						mobile = [],
 						state = false,
-						nextSibling = null,
-						ne, query;
+						query,
+						a, x, ce, f;
 	
-					// Determine next element.
-						for (ne = e.nextSibling; ne; ne = ne.nextSibling) {
+					// Determine media query via "reorder-breakpoint".
+	
+						// Attribute provided *and* it's a valid breakpoint? Use it.
+							if ('reorderBreakpoint' in e.dataset
+							&&	e.dataset.reorderBreakpoint in breakpoints)
+								query = breakpoints[e.dataset.reorderBreakpoint];
+	
+						// Otherwise, default to "small".
+							else
+								query = breakpoints.small;
+	
+					// Get desktop order.
+						for (ce of e.childNodes) {
 	
 							// Not a node? Skip.
-								if (ne.nodeType != 1)
+								if (ce.nodeType != 1)
 									continue;
 	
-							// No visibility setting? Found our next element so bail.
-								if (!ne.dataset.visibility)
-									break;
+							// Add to desktop order.
+								desktop.push(ce);
 	
 						}
 	
-					// Determine media query at which to hide element.
-						switch (e.dataset.visibility) {
+					// Determine mobile order via "reorder".
+						a = e.dataset.reorder.split(',');
 	
-							case 'mobile':
-								query = '(min-width: 737px)';
-								break;
-	
-							case 'desktop':
-								query = '(max-width: 736px)';
-								break;
-	
-							default:
-								return;
-	
-						}
+						for (x of a)
+							mobile.push(desktop[parseInt(x)]);
 	
 					// Create handler.
 						f = function() {
+	
+							var order = null,
+								ce;
 	
 							// Matches media query?
 								if (window.matchMedia(query).matches) {
@@ -1233,8 +1335,9 @@
 											// Mark as applied.
 												state = true;
 	
-											// Hide element (= remove from DOM).
-												p.removeChild(e);
+											// Apply mobile.
+												for (ce of mobile)
+													e.appendChild(ce);
 	
 										}
 	
@@ -1249,8 +1352,9 @@
 											// Unmark as applied.
 												state = false;
 	
-											// Show element (= reinsert before next element).
-												p.insertBefore(e, ne);
+											// Apply desktop.
+												for (ce of desktop)
+													e.appendChild(ce);
 	
 										}
 	
@@ -2118,11 +2222,14 @@
 		onvisible.add('h1.style1, h2.style1, h3.style1, p.style1', { style: 'blur-in', speed: 875, intensity: 0, delay: 125, staggerOrder: '', replay: false });
 		onvisible.add('.buttons.style4', { style: 'blur-in', speed: 750, intensity: 5, delay: 250, replay: false });
 		onvisible.add('.buttons.style7', { style: 'blur-in', speed: 750, intensity: 5, delay: 250, replay: false });
-		onvisible.add('#jplinks2', { style: 'blur-in', speed: 750, intensity: 5, delay: 250, replay: false });
 		onvisible.add('hr.style1', { style: 'blur-in', speed: 500, intensity: 5, delay: 500, staggerOrder: '', replay: false });
 		onvisible.add('h1.style2, h2.style2, h3.style2, p.style2', { style: 'blur-in', speed: 500, intensity: 5, delay: 625, staggerOrder: '', replay: false });
-		onvisible.add('.buttons.style1', { style: 'blur-in', speed: 625, intensity: 5, delay: 750, replay: false });
+		onvisible.add('.buttons.style1', { style: 'blur-in', speed: 625, intensity: 2, delay: 750, replay: false });
+		onvisible.add('#descjp', { style: 'blur-in', speed: 875, intensity: 0, delay: 125, staggerOrder: '', replay: false });
+		onvisible.add('#subtextjp', { style: 'blur-in', speed: 500, intensity: 5, delay: 625, staggerOrder: '', replay: false });
+		onvisible.add('#buttons09', { style: 'blur-in', speed: 625, intensity: 2, delay: 750, replay: false });
 		onvisible.add('h1.style5, h2.style5, h3.style5, p.style5', { style: 'blur-in', speed: 875, intensity: 5, delay: 125, staggerOrder: '', replay: false });
 		onvisible.add('.icons.style1', { style: 'blur-in', speed: 625, intensity: 5, delay: 375, replay: false });
+		onvisible.add('#subtext2en', { style: 'blur-in', speed: 500, intensity: 5, delay: 625, staggerOrder: '', replay: false });
 
 })();
