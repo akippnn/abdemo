@@ -1268,26 +1268,13 @@
 	
 		})();
 	
-	// Scroll events.
 		var scrollEvents = {
 	
 			/**
-			 * ID counter.
-			 * @var {int}
-			 */
-			counter: 1,
-	
-			/**
-			 * Intersection observers.
-			 * @var {object}
-			 */
-			intersectionObservers: {},
-	
-			/**
 			 * Items.
-			 * @var {object}
+			 * @var {array}
 			 */
-			items: {},
+			items: [],
 	
 			/**
 			 * Adds an event.
@@ -1295,176 +1282,188 @@
 			 */
 			add: function(o) {
 	
-				var intersectionObserver, item;
-	
-				// Build item.
-					item = {
-						element: o.element,
-						triggerElement: (('triggerElement' in o && o.triggerElement) ? o.triggerElement : o.element),
-						enter: ('enter' in o ? o.enter : null),
-						leave: ('leave' in o ? o.leave : null),
-						mode: ('mode' in o ? o.mode : 1),
-						threshold: ('threshold' in o ? o.threshold : 0),
-						margin: ('margin' in o ? o.margin : 0),
-						initialState: ('initialState' in o ? o.initialState : null),
-						state: false,
-					};
-	
-				// Get intersection observer.
-					intersectionObserver = this.intersectionObserver(item.threshold, item.margin);
-	
-					if (!intersectionObserver)
-						return;
-	
-				// Initialize trigger element (if necessary).
-					if (!('scrollEventsId' in item.triggerElement.dataset)) {
-	
-						// Observe.
-							intersectionObserver.observe(item.triggerElement);
-	
-						// Assign scroll events ID.
-							item.triggerElement.dataset.scrollEventsId = this.counter++;
-	
-						// Initialize list.
-							this.items[item.triggerElement.dataset.scrollEventsId] = [];
-	
-					}
-	
-				// Add item to trigger element's list.
-					this.items[item.triggerElement.dataset.scrollEventsId].push(item);
-	
-			},
-	
-			/**
-			 * Handler.
-			 * @param {array} entries Entries.
-			 * @param {IntersectionObserver} observer Intersection observer.
-			 */
-			handler: function(entries, observer) {
-	
-				var _this = this;
-	
-				entries.forEach(function(entry) {
-	
-					var item, items, state;
-	
-					// Get trigger element's items.
-						if (!('scrollEventsId' in entry.target.dataset))
-							return;
-	
-						items = _this.items[entry.target.dataset.scrollEventsId];
-	
-					// Step through items.
-						items.forEach(function(item) {
-	
-							// No enter/leave handlers? Bail.
-								if (!item.enter
-								&&	!item.leave)
-									return true;
-	
-							// No trigger element, or not visible? Bail.
-								if (!item.triggerElement
-								||	item.triggerElement.offsetParent === null)
-									return true;
-	
-							// Determine state.
-	
-								// Initial state exists?
-									if (item.initialState !== null) {
-	
-										// Use it for this check.
-											state = item.initialState;
-	
-										// Clear it.
-											item.initialState = null;
-	
-									}
-	
-								// Otherwise, get state from intersection observer entry.
-									else
-										state = !!entry.isIntersecting;
-	
-							// State changed?
-								if (state != item.state) {
-	
-									// Update state.
-										item.state = state;
-	
-									// Call handler.
-										if (item.state) {
-	
-											// Enter handler exists?
-												if (item.enter) {
-	
-													// Call it.
-														(item.enter).apply(item.element);
-	
-													// No leave handler? Unbind enter handler (so we don't check this element again).
-														if (!item.leave)
-															item.enter = null;
-	
-												}
-	
-										}
-										else {
-	
-											// Leave handler exists?
-												if (item.leave) {
-	
-													// Call it.
-														(item.leave).apply(item.element);
-	
-													// No enter handler? Unbind leave handler (so we don't check this element again).
-														if (!item.enter)
-															item.leave = null;
-	
-												}
-	
-										}
-	
-								}
-	
-						});
-	
+				this.items.push({
+					element: o.element,
+					triggerElement: (('triggerElement' in o && o.triggerElement) ? o.triggerElement : o.element),
+					enter: ('enter' in o ? o.enter : null),
+					leave: ('leave' in o ? o.leave : null),
+					mode: ('mode' in o ? o.mode : 3),
+					offset: ('offset' in o ? o.offset : 0),
+					initialState: ('initialState' in o ? o.initialState : null),
+					state: false,
 				});
 	
 			},
 	
 			/**
-			 * Creates an intersection observer.
-			 * @param {float} threshold Threshold.
-			 * @param {int} margin Margin.
-			 * @return {IntersectionObserver} Intersection observer.
+			 * Handler.
 			 */
-			intersectionObserver: function(threshold, margin) {
+			handler: function() {
 	
-				var _this = this,
-					key;
+				var	height, top, bottom, scrollPad;
 	
-				// Intersection observer not supported? Bail.
-					if (!('IntersectionObserver' in window))
-						return null;
+				// Determine values.
+					if (client.os == 'ios') {
 	
-				// Determine key.
-					key = String(threshold) + '-' + String(margin);
+						height = document.documentElement.clientHeight;
+						top = document.body.scrollTop + window.scrollY;
+						bottom = top + height;
+						scrollPad = 125;
 	
-				// Not initialized? Create it.
-					if (!(key in this.intersectionObservers))
-						this.intersectionObservers[key] = new IntersectionObserver(
-							function(entries, observer) {
-								_this.handler(entries, observer);
-							},
-							{
-								threshold: threshold,
-								rootMargin: margin + 'px',
+					}
+					else {
+	
+						height = document.documentElement.clientHeight;
+						top = document.documentElement.scrollTop;
+						bottom = top + height;
+						scrollPad = 0;
+	
+					}
+	
+				// Step through items.
+					scrollEvents.items.forEach(function(item) {
+	
+						var bcr, elementTop, elementBottom, state, a, b;
+	
+						// No enter/leave handlers? Bail.
+							if (!item.enter
+							&&	!item.leave)
+								return true;
+	
+						// No trigger element, or not visible? Bail.
+							if (!item.triggerElement
+							||	item.triggerElement.offsetParent === null)
+								return true;
+	
+						// Get element position.
+							bcr = item.triggerElement.getBoundingClientRect();
+							elementTop = top + Math.floor(bcr.top);
+							elementBottom = elementTop + bcr.height;
+	
+						// Determine state.
+	
+							// Initial state exists?
+								if (item.initialState !== null) {
+	
+									// Use it for this check.
+										state = item.initialState;
+	
+									// Clear it.
+										item.initialState = null;
+	
+								}
+	
+							// Otherwise, determine state from mode/position.
+								else {
+	
+									switch (item.mode) {
+	
+										// Element falls within viewport.
+											case 1:
+											default:
+	
+												// State.
+													state = (bottom > (elementTop - item.offset) && top < (elementBottom + item.offset));
+	
+												break;
+	
+										// Viewport midpoint falls within element.
+											case 2:
+	
+												// Midpoint.
+													a = (top + (height * 0.5));
+	
+												// State.
+													state = (a > (elementTop - item.offset) && a < (elementBottom + item.offset));
+	
+												break;
+	
+										// Viewport midsection falls within element.
+											case 3:
+	
+												// Upper limit (25%-).
+													a = top + (height * 0.25);
+	
+													if (a - (height * 0.375) <= 0)
+														a = 0;
+	
+												// Lower limit (-75%).
+													b = top + (height * 0.75);
+	
+													if (b + (height * 0.375) >= document.body.scrollHeight - scrollPad)
+														b = document.body.scrollHeight + scrollPad;
+	
+												// State.
+													state = (b > (elementTop - item.offset) && a < (elementBottom + item.offset));
+	
+												break;
+	
+									}
+	
+								}
+	
+						// State changed?
+							if (state != item.state) {
+	
+								// Update state.
+									item.state = state;
+	
+								// Call handler.
+									if (item.state) {
+	
+										// Enter handler exists?
+											if (item.enter) {
+	
+												// Call it.
+													(item.enter).apply(item.element);
+	
+												// No leave handler? Unbind enter handler (so we don't check this element again).
+													if (!item.leave)
+														item.enter = null;
+	
+											}
+	
+									}
+									else {
+	
+										// Leave handler exists?
+											if (item.leave) {
+	
+												// Call it.
+													(item.leave).apply(item.element);
+	
+												// No enter handler? Unbind leave handler (so we don't check this element again).
+													if (!item.enter)
+														item.leave = null;
+	
+											}
+	
+									}
+	
 							}
-						);
 	
-				return this.intersectionObservers[key];
+					});
 	
 			},
 	
+			/**
+			 * Initializes scroll events.
+			 */
+			init: function() {
+	
+				// Bind handler to events.
+					on('load', this.handler);
+					on('resize', this.handler);
+					on('scroll', this.handler);
+	
+				// Do initial handler call.
+					(this.handler)();
+	
+			}
 		};
+	
+		// Initialize.
+			scrollEvents.init();
 	
 	// Deferred.
 		(function() {
@@ -1557,8 +1556,7 @@
 						scrollEvents.add({
 							element: i,
 							enter: enterHandler,
-							threshold: 0,
-							margin: 250,
+							offset: 250,
 						});
 	
 				});
@@ -2039,8 +2037,6 @@
 						// Add scroll event.
 							scrollEvents.add({
 								element: e,
-								threshold: 0.5,
-								margin: 0,
 								triggerElement: triggerElement,
 								initialState: state,
 								enter: children ? function() {
@@ -2118,15 +2114,15 @@
 		};
 	
 	// "On Visible" animations.
-		onvisible.add('#title', { style: 'blur-in', speed: 1000, intensity: 5, delay: 0, staggerOrder: '', replay: false });
-		onvisible.add('.buttons.style4', { style: 'blur-in', speed: 375, intensity: 5, delay: 500, replay: false });
-		onvisible.add('.buttons.style5', { style: 'blur-in', speed: 375, intensity: 5, delay: 500, replay: false });
+		onvisible.add('.image.style1', { style: 'blur-in', speed: 1000, intensity: 5, delay: 0, staggerOrder: '', replay: false });
+		onvisible.add('h1.style1, h2.style1, h3.style1, p.style1', { style: 'blur-in', speed: 875, intensity: 0, delay: 125, staggerOrder: '', replay: false });
+		onvisible.add('.buttons.style4', { style: 'blur-in', speed: 750, intensity: 5, delay: 250, replay: false });
+		onvisible.add('.buttons.style7', { style: 'blur-in', speed: 750, intensity: 5, delay: 250, replay: false });
+		onvisible.add('#jplinks2', { style: 'blur-in', speed: 750, intensity: 5, delay: 250, replay: false });
 		onvisible.add('hr.style1', { style: 'blur-in', speed: 500, intensity: 5, delay: 500, staggerOrder: '', replay: false });
-		onvisible.add('h1.style2, h2.style2, h3.style2, p.style2', { style: 'blur-in', speed: 375, intensity: 5, delay: 625, staggerOrder: '', replay: false });
-		onvisible.add('.buttons.style1', { style: 'blur-in', speed: 375, intensity: 5, delay: 625, replay: false });
-		onvisible.add('h1.style5, h2.style5, h3.style5, p.style5', { style: 'blur-in', speed: 375, intensity: 5, delay: 500, staggerOrder: '', replay: false });
-		onvisible.add('.icons.style1', { style: 'blur-in', speed: 500, intensity: 5, delay: 500, replay: false });
-		onvisible.add('hr.style2', { style: 'blur-in', speed: 375, intensity: 5, delay: 625, staggerOrder: '', replay: false });
-		onvisible.add('.icons.style3', { style: 'blur-in', speed: 375, intensity: 5, delay: 625, replay: false });
+		onvisible.add('h1.style2, h2.style2, h3.style2, p.style2', { style: 'blur-in', speed: 500, intensity: 5, delay: 625, staggerOrder: '', replay: false });
+		onvisible.add('.buttons.style1', { style: 'blur-in', speed: 625, intensity: 5, delay: 750, replay: false });
+		onvisible.add('h1.style5, h2.style5, h3.style5, p.style5', { style: 'blur-in', speed: 875, intensity: 5, delay: 125, staggerOrder: '', replay: false });
+		onvisible.add('.icons.style1', { style: 'blur-in', speed: 625, intensity: 5, delay: 375, replay: false });
 
 })();
